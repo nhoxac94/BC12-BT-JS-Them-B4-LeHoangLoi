@@ -32,8 +32,8 @@ btnTimNgay.onclick = function () {
     } else if (((ipNgay == 30) && (ipThang == 4 || ipThang == 6 || ipThang == 9 || ipThang == 11)) || ((ipNgay == 31) && (ipThang == 1 || ipThang == 3 || ipThang == 5 || ipThang == 7 || ipThang == 8 || ipThang == 10))) {
         ngaySau = 1;
         thangSau = ipThang + 1;
-    } else if ((ipNgay == 30) && (ipThang == 1 || ipThang == 3 || ipThang == 5 || ipThang == 7 || ipThang == 8 || ipThang == 10)) {
-        ngaySau = ++ipNgay;
+    } else if ((ipNgay == 30) && (ipThang == 1 || ipThang == 3 || ipThang == 5 || ipThang == 7 || ipThang == 8 || ipThang == 10 || ipThang == 12)) {
+        ngaySau = ipNgay + 1;
     } else if (ipNgay == 31 && ipThang == 12) {
         ngaySau = 1;
         thangSau = 1;
@@ -50,21 +50,21 @@ btnTimNgay.onclick = function () {
         thangTruoc = 2;
     } else if (ipNgay == 1 && ipThang == 3 && ((ipNam % 4 == 0 && ipNam % 100 != 0) || (ipNam % 400 == 0))) {
         ngayTruoc = 29;
-        thangTruoc = 3;
-    } else if ((ipNgay == 1) && (ipThang == 4 || ipThang == 6 || ipThang == 9 || ipThang == 11)) {
+        thangTruoc = 2;
+    } else if ((ipNgay == 1) && (ipThang == 4 || ipThang == 6 ||  ipThang == 8 || ipThang == 9 || ipThang == 11)) {
         ngayTruoc = 31;
         thangTruoc = ipThang - 1;
-    } else if (((ipNgay == 1) && (ipThang == 3 || ipThang == 5 || ipThang == 7 || ipThang == 8 || ipThang == 10 || ipThang == 12))) {
+    } else if (((ipNgay == 1) && (ipThang == 3 || ipThang == 5 || ipThang == 7  || ipThang == 10 || ipThang == 12))) {
         ngayTruoc = 30;
-        thangTruoc = --ipThang;
+        thangTruoc = ipThang - 1;
     } else if (ipNgay == 1 && ipThang == 1) {
         ngayTruoc = 31;
         thangTruoc = 12;
         namTruoc = ipNam - 1;
     }
 
-    kqNgayTruoc.innerHTML = 'Ngày sau là: Ngày: ' + ngaySau + ' - ' + 'tháng: ' + thangSau + ' - ' + 'năm: ' + namSau;
-    kqNgaySau.innerHTML = 'Ngày trước là: Ngày: ' + ngayTruoc + ' - ' + 'tháng: ' + thangTruoc + ' - ' + 'năm: ' + namTruoc;
+    kqNgayTruoc.innerHTML = `<h3 style = "color: blue;"> Ngày sau là: Ngày ${ngaySau} - tháng ${thangSau} - năm ${namSau} </h3>`;
+    kqNgaySau.innerHTML = `<h3 style = "color: blue;"> Ngày sau là: Ngày ${ngayTruoc} - tháng ${thangTruoc} - năm ${namTruoc} </h3>`;
 
 }
 
@@ -91,8 +91,8 @@ btnTinhNgay.onclick = function () {
     var ipNamB2 = document.getElementById('ipNamB2').value;
     var ngayTrongThang = 0;
 
-    if (isNaN(ipThangB2) || isNaN(ipNamB2) || ipThangB2 < 0 || ipThangB2 > 12 || ipNamB2 <= 0|| Number.isInteger(+ipThangB2) == false ||Number.isInteger(+ipNamB2) == false ) {
-        kqNgayTrongThang.innerHTML = 'Vui lòng nhập lại ngày tháng năm'
+    if (ipThangB2 <= 0 || ipThangB2 > 12 || ipNamB2 <= 0|| Number.isInteger(+ipThangB2) == false ||Number.isInteger(+ipNamB2) == false ) {
+        kqNgayTrongThang.innerHTML = `<h3 style = "color: red;">Vui lòng nhập lại tháng năm</h3>`     
     }else {
         if (ipThangB2 == 1 || ipThangB2 == 3 || ipThangB2 == 5 || ipThangB2 == 7 || ipThangB2 == 8 || ipThangB2 == 10 || ipThangB2 == 12) {
             ngayTrongThang = 31;
@@ -103,7 +103,7 @@ btnTinhNgay.onclick = function () {
         } else {
             ngayTrongThang = 29;
         }
-        kqNgayTrongThang.innerHTML = 'Tháng ' + ipThangB2 + ' năm ' + ipNamB2 + ' có: ' + ngayTrongThang + ' ngày'
+        kqNgayTrongThang.innerHTML =` <h3 style = "color: blue;">Tháng ${ipThangB2} năm ${ipNamB2} có: ${ngayTrongThang} ngày</h3> `
     }
     
 }
@@ -128,11 +128,11 @@ var btnDocSo = document.getElementById('btnDocSo');
 var kqDocSo = document.getElementById('kqDocSo');
 
 btnDocSo.onclick = function() {
-    var soCoBaChuSo = +document.getElementById('soCoBaChuSo').value;
-    var soHangDonVi, soHangChuc, soHangTram;
+    var soCoBaChuSo = document.getElementById('soCoBaChuSo').value;
+    var soHangDonVi, soHangChuc, soHangTram, docSo;
 
-    if (isNaN(soCoBaChuSo) ||  (Math.abs(soCoBaChuSo) / 100) < 1 || (Math.abs(soCoBaChuSo) / 1000) > 1  || Number.isInteger(soCoBaChuSo) == false) {
-        kqDocSo.innerHTML = 'Vui lòng nhập lại số nguyên có 3 chữ số'
+    if ((Math.abs(soCoBaChuSo) / 100) < 1 || (Math.abs(soCoBaChuSo) / 1000) >= 1  || Number.isInteger(+soCoBaChuSo) == false) {
+        kqDocSo.innerHTML = ` <h3 style = "color: red" > Vui lòng nhập lại số nguyên có 3 chữ số </h3> `
         
     } else {
         soHangDonVi = Math.abs(soCoBaChuSo) % 10;
@@ -140,28 +140,29 @@ btnDocSo.onclick = function() {
         soHangTram = ((Math.abs(soCoBaChuSo) - soHangDonVi - soHangChuc*10)/100);
         if (soCoBaChuSo < 0) {
             if (soHangDonVi != 0 && soHangChuc != 0 && soHangTram != 0) {
-            kqDocSo.innerHTML = 'Số ' + soCoBaChuSo + ' được đọc là: Âm ' + soHangTram + ' trăm ' + soHangChuc +' mươi ' + soHangDonVi;  
+            docSo = 'Số ' + soCoBaChuSo + ' được đọc là: Âm ' + soHangTram + ' trăm ' + soHangChuc +' mươi ' + soHangDonVi;  
             } else if (soHangDonVi == 0 && soHangChuc != 0 && soHangTram != 0) {
-                kqDocSo.innerHTML = 'Số ' + soCoBaChuSo + ' được đọc là: Âm ' + soHangTram + ' trăm ' + soHangChuc +' mươi ';
+                docSo = 'Số ' + soCoBaChuSo + ' được đọc là: Âm ' + soHangTram + ' trăm ' + soHangChuc +' mươi ';
             } else if (soHangDonVi == 0 && soHangChuc == 0 && soHangTram != 0) {
-                kqDocSo.innerHTML = 'Số ' + soCoBaChuSo + ' được đọc là: Âm ' + soHangTram + ' trăm ';  
+                docSo = 'Số ' + soCoBaChuSo + ' được đọc là: Âm ' + soHangTram + ' trăm ';  
             } else if (soHangDonVi != 0 && soHangChuc == 0 && soHangTram != 0) {
-                kqDocSo.innerHTML = 'Số ' + soCoBaChuSo + ' được đọc là: Âm ' + soHangTram + ' trăm ' + ' lẻ ' + soHangDonVi;  
+                docSo = 'Số ' + soCoBaChuSo + ' được đọc là: Âm ' + soHangTram + ' trăm ' + ' lẻ ' + soHangDonVi;  
     
             }
     
         } else {
             if (soHangDonVi != 0 && soHangChuc != 0 && soHangTram != 0) {
-                kqDocSo.innerHTML = 'Số ' + soCoBaChuSo + ' được đọc là: ' + soHangTram + ' trăm ' + soHangChuc +' mươi ' + soHangDonVi;  
+                docSo = 'Số ' + soCoBaChuSo + ' được đọc là: ' + soHangTram + ' trăm ' + soHangChuc +' mươi ' + soHangDonVi;  
                 } else if (soHangDonVi == 0 && soHangChuc != 0 && soHangTram != 0) {
-                    kqDocSo.innerHTML = 'Số ' + soCoBaChuSo + ' được đọc là: ' + soHangTram + ' trăm ' + soHangChuc +' mươi ';
+                    docSo = 'Số ' + soCoBaChuSo + ' được đọc là: ' + soHangTram + ' trăm ' + soHangChuc +' mươi ';
                 } else if (soHangDonVi == 0 && soHangChuc == 0 && soHangTram != 0) {
-                    kqDocSo.innerHTML = 'Số ' + soCoBaChuSo + ' được đọc là: ' + soHangTram + ' trăm ';  
+                    docSo = 'Số ' + soCoBaChuSo + ' được đọc là: ' + soHangTram + ' trăm ';  
                 } else if (soHangDonVi != 0 && soHangChuc == 0 && soHangTram != 0) {
-                    kqDocSo.innerHTML = 'Số ' + soCoBaChuSo + ' được đọc là: ' + soHangTram + ' trăm ' + ' lẻ ' + soHangDonVi;  
+                    docSo = 'Số ' + soCoBaChuSo + ' được đọc là: ' + soHangTram + ' trăm ' + ' lẻ ' + soHangDonVi;  
         
                 }
         }
+        kqDocSo.innerHTML = ` <h3 style = "color: blue">${docSo}</h3>`
     }
 }
 
@@ -191,34 +192,35 @@ btnTimKhoangCach.onclick = function() {
     var toaDoXHS3 = document.getElementById('toaDoXHS3').value;
     var toaDoYHS3 = document.getElementById('toaDoYHS3').value;
 
-    if (isNaN(toaDoXHS1) || isNaN(toaDoYHS1)){
-        kqHocSinh.innerHTML = 'Vui lòng nhập lại tọa độ nhà học sinh thứ nhất'
-    }else if (isNaN(toaDoXHS2) || isNaN(toaDoYHS2)){
-        kqHocSinh.innerHTML = 'Vui lòng nhập lại tọa độ nhà học sinh thứ hai'
-    }else if (isNaN(toaDoXHS3) || isNaN(toaDoYHS3)){
-        kqHocSinh.innerHTML = 'Vui lòng nhập lại tọa độ nhà học sinh thứ ba'
+    if (isNaN(toaDoXHS1) || isNaN(toaDoYHS1) || toaDoXHS1 == '' || toaDoYHS1 =='' || tenHS1 == ''){
+        kqHocSinh.innerHTML = ` <h3 style = "color: red;">Vui lòng nhập lại thông tin học sinh thứ nhất</h3>` 
+    }else if (isNaN(toaDoXHS2) || isNaN(toaDoYHS2) || toaDoXHS2 == '' || toaDoYHS2 =='' || tenHS2 == ''){
+        kqHocSinh.innerHTML = ` <h3 style = "color: red;">Vui lòng nhập lại thông tin học sinh thứ hai</h3>` 
+    }else if (isNaN(toaDoXHS3) || isNaN(toaDoYHS3) || toaDoXHS3 == '' || toaDoYHS3 =='' || tenHS3 == ''){
+        kqHocSinh.innerHTML = ` <h3 style = "color: red;">Vui lòng nhập lại thông tin học sinh thứ ba</h3>` 
     }else {
-        var khoangCachHS1, khoangCachHS2, khoangCachHS3;
+        var khoangCachHS1, khoangCachHS2, khoangCachHS3, kqSoSanhQuangDuong;
         khoangCachHS1 = Math.sqrt(toaDoXHS1**2 + toaDoYHS1**2);
         khoangCachHS2 = Math.sqrt(toaDoXHS2**2 + toaDoYHS2**2);
         khoangCachHS3 = Math.sqrt(toaDoXHS3**2 + toaDoYHS3**2);
     
         if (khoangCachHS1 == khoangCachHS2 && khoangCachHS2 == khoangCachHS3) {
-            kqHocSinh.innerHTML = 'Cả ba học sinh ' + tenHS1 + ', ' + tenHS2 + ', ' + tenHS3 + ' có nhà xa bằng nhau';
+            kqSoSanhQuangDuong = 'Cả ba học sinh ' + tenHS1 + ', ' + tenHS2 + ', ' + tenHS3 + ' có nhà xa bằng nhau';
         } else if(khoangCachHS1 > khoangCachHS2 && khoangCachHS1 > khoangCachHS3) {
-            kqHocSinh.innerHTML = 'Học sinh ' + tenHS1 + ' có nhà xa nhất';
+            kqSoSanhQuangDuong = 'Học sinh ' + tenHS1 + ' có nhà xa nhất';
         } else if(khoangCachHS1 == khoangCachHS2 && khoangCachHS1 > khoangCachHS3) {
-            kqHocSinh.innerHTML = 'Học sinh ' + tenHS1 + ', ' + tenHS2 + ' có nhà xa nhất';
+            kqSoSanhQuangDuong = 'Học sinh ' + tenHS1 + ', ' + tenHS2 + ' có nhà xa nhất';
         } else if(khoangCachHS1 == khoangCachHS3 && khoangCachHS1 > khoangCachHS2) {
-            kqHocSinh.innerHTML = 'Học sinh ' + tenHS1 + ', ' + tenHS3 + ' có nhà xa nhất';
+            kqSoSanhQuangDuong = 'Học sinh ' + tenHS1 + ', ' + tenHS3 + ' có nhà xa nhất';
         } else if(khoangCachHS2 > khoangCachHS1 && khoangCachHS2 > khoangCachHS3) {
-            kqHocSinh.innerHTML = 'Học sinh ' + tenHS2 + ' có nhà xa nhất';
+            kqSoSanhQuangDuong = 'Học sinh ' + tenHS2 + ' có nhà xa nhất';
     
         } else if(khoangCachHS2 == khoangCachHS3 && khoangCachHS3 > khoangCachHS1) {
-            kqHocSinh.innerHTML = 'Học sinh ' + tenHS2 + ', ' + tenHS3 + ' có nhà xa nhất';
+            kqSoSanhQuangDuong = 'Học sinh ' + tenHS2 + ', ' + tenHS3 + ' có nhà xa nhất';
         } else if(khoangCachHS3 > khoangCachHS1 && khoangCachHS3 > khoangCachHS2) {
-            kqHocSinh.innerHTML = 'Học sinh ' + tenHS3 + ' có nhà xa nhất';
+            kqSoSanhQuangDuong = 'Học sinh ' + tenHS3 + ' có nhà xa nhất';
         }
+        kqHocSinh.innerHTML = `<h3 style = "color:blue"> ${kqSoSanhQuangDuong} </h3>`
     }
 }
 
